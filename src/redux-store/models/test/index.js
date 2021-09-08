@@ -1,9 +1,9 @@
-
+import testProvider from "../../../data-access/test-provider";
 
 export default {
   state: {
-    carts: [],
-    cartInfo: {},
+    listTruyen: [],
+    currentItem: {},
   },
   reducers: {
     updateData(state, payload = {}) {
@@ -11,8 +11,22 @@ export default {
     },
   },
   effects: (dispatch) => ({
-    getCart: (state) => {
-      
+    getTruyen: (state) => {
+      testProvider
+        .search()
+        .then((s) => {
+          let listTruyen = (s?.data?.content || []);
+
+          dispatch.test.updateData({
+            listTruyen: [...listTruyen],
+            
+          });
+        })
+        .catch((e) => {
+          dispatch.test.updateData({
+            listTruyen: [],
+          });
+        });
     },
   }),
 };
