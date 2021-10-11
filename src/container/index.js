@@ -1,29 +1,42 @@
 import React, { useEffect } from "react";
-import NewsLetter from "./newsletter/index";
-import Sustainability from "./sustainability/index";
+import Event from "./event/index";
+import Specials from "./specials/index";
 import About from "./abount/index";
-import Proj from "./proj/index";
-import Video from "./playFullVideo/index";
+import Menu from "./menu/index";
+import WhyUs from "./whyUs/index";
 import Header from "./header";
 import Footer from "./footer";
 import MainHeader from "./main-header";
+import { connect } from "react-redux";
+import Hero from "./hero";
  
  function Overview(props) {
      return (
-        <div id="homePage" class="disableScroll">
-            <MainHeader />
-            <div class="page-main">
-            <div class="home-page">
-             <Header />
-             <Video />
-             <Proj />
-             <About />
-             <Sustainability />
-             <NewsLetter />
-             <Footer />
+        <div>
+          <Hero />
+          <main id="main">
+          <About />
+          <WhyUs />
+          <Menu />
+          <Specials />
+          <Event />
+
+          </main>
+            
          </div>
-        </div>
-        </div>
      )
  } 
- export default Overview;
+ export default connect(
+    (state) => ({
+      listTruyen: state.test.listTruyen || [],
+    }),
+    ({
+      test: {
+        getTruyen,
+     },
+    }) => {
+      return {
+        getTruyen
+      };
+    }
+  )(Overview);
