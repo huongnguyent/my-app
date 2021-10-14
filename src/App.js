@@ -44,18 +44,7 @@ const App = (props) => {
             ? true
             : false;
 
-          if (route.component && check)
-            return (
-              <RouterWithPaths
-                exact
-                key={key}
-                roles={route.roles}
-                path={route.path}
-                render={(props) => {
-                  return <route.component {...props} />;
-                }}
-              />
-            );
+          if (route.component && check) return <route.component {...props} />;
           return null;
         })}
       </Suspense>
