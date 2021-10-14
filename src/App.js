@@ -1,7 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
 import React, { useEffect, lazy, Suspense } from "react";
-// import { Switch } from "react-router-dom";
+import { Switch } from "react-router-dom";
 import RouterWithPaths from "./components/RouterWithPaths";
 import homePage from "./container/index";
 
@@ -33,33 +33,33 @@ const App = (props) => {
   ];
   return (
     <div className="App">
-      {/* <Switch> */}
-      <Suspense fallback={<div>{"loading..."}</div>}>
-        {routers.map((route, key) => {
-          let check = !route.role
-            ? true
-            : route.role == props.auth.role
-            ? true
-            : route.isLeader
-            ? true
-            : false;
+      <Switch>
+        <Suspense fallback={<div>{"loading..."}</div>}>
+          {routers.map((route, key) => {
+            let check = !route.role
+              ? true
+              : route.role == props.auth.role
+              ? true
+              : route.isLeader
+              ? true
+              : false;
 
-          if (route.component && check)
-            return (
-              <RouterWithPaths
-                exact
-                key={key}
-                roles={route.roles}
-                path={route.path}
-                render={(props) => {
-                  return <route.component {...props} />;
-                }}
-              />
-            );
-          return null;
-        })}
-      </Suspense>
-      {/* </Switch> */}
+            if (route.component && check)
+              return (
+                <RouterWithPaths
+                  exact
+                  key={key}
+                  roles={route.roles}
+                  path={route.path}
+                  render={(props) => {
+                    return <route.component {...props} />;
+                  }}
+                />
+              );
+            return null;
+          })}
+        </Suspense>
+      </Switch>
     </div>
   );
 };
